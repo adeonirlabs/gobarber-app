@@ -6,7 +6,7 @@ import { View, StatusBar } from 'react-native'
 
 import Routes from './routes'
 
-const App = (): JSX.Element => (
+const App = () => (
   <NavigationContainer>
     <StatusBar barStyle='light-content' backgroundColor='#312e38' />
     <View style={{ flex: 1 }}>

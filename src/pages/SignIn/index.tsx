@@ -2,7 +2,7 @@ import React from 'react'
 
 import * as S from './styles'
 
-const SignIn = (): JSX.Element => {
+const SignIn = () => {
   return <S.Container />
 }
 

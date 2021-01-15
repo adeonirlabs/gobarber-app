@@ -6,7 +6,7 @@ import SignUp from '../pages/SignUp'
 
 const Auth = createStackNavigator()
 
-const AuthRoutes = (): JSX.Element => (
+const AuthRoutes = () => (
   <Auth.Navigator
     screenOptions={{
       headerShown: false,
