@@ -1,6 +1,7 @@
 import React from 'react'
 import { Image } from 'react-native'
-import logoImg from '../../assets/logo.png'
+
+import logoImg from 'assets/logo.png'
 
 import * as S from './styles'
 
