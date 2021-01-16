@@ -7,6 +7,7 @@ import {
   Platform,
 } from 'react-native'
 import Icon from 'react-native-vector-icons/Feather'
+import { useNavigation } from '@react-navigation/native'
 
 import Button from 'ui/Button'
 import Input from 'ui/Input'
@@ -16,6 +17,8 @@ import logoImg from 'assets/logo.png'
 import * as S from './styles'
 
 const SignIn = () => {
+  const navigation = useNavigation()
+
   return (
     <>
       <KeyboardAvoidingView
@@ -40,7 +43,7 @@ const SignIn = () => {
             <Button onPress={() => console.log('Entrar')}>Entrar</Button>
 
             <S.ForgotPassword
-              onPress={() => console.log('esqueci minha senha')}
+              onPress={() => console.log('Esqueci minha senha')}
             >
               <S.ForgotPasswordText>Esqueci minha senha</S.ForgotPasswordText>
             </S.ForgotPassword>
@@ -48,10 +51,10 @@ const SignIn = () => {
         </ScrollView>
       </KeyboardAvoidingView>
 
-      <S.CreateAccountButton onPress={() => console.log('criar uma conta')}>
+      <S.CreateAccount onPress={() => navigation.navigate('SignUp')}>
         <Icon name='log-in' size={20} color='#ff9000' />
-        <S.CreateAccountButtonText>Criar uma conta</S.CreateAccountButtonText>
-      </S.CreateAccountButton>
+        <S.CreateAccountText>Criar uma conta</S.CreateAccountText>
+      </S.CreateAccount>
     </>
   )
 }
