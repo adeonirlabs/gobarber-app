@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-               BuildableName = "gobargerapp-tvOS.app"
-               BlueprintName = "gobargerapp-tvOS"
-               ReferencedContainer = "container:gobargerapp.xcodeproj">
+               BuildableName = "GoBarberApp-tvOS.app"
+               BlueprintName = "GoBarberApp-tvOS"
+               ReferencedContainer = "container:GoBarberApp.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2D02E48F1E0B4A5D006451C7"
-               BuildableName = "gobargerapp-tvOSTests.xctest"
-               BlueprintName = "gobargerapp-tvOSTests"
-               ReferencedContainer = "container:gobargerapp.xcodeproj">
+               BuildableName = "GoBarberApp-tvOSTests.xctest"
+               BlueprintName = "GoBarberApp-tvOSTests"
+               ReferencedContainer = "container:GoBarberApp.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "gobargerapp-tvOS.app"
-            BlueprintName = "gobargerapp-tvOS"
-            ReferencedContainer = "container:gobargerapp.xcodeproj">
+            BuildableName = "GoBarberApp-tvOS.app"
+            BlueprintName = "GoBarberApp-tvOS"
+            ReferencedContainer = "container:GoBarberApp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2D02E47A1E0B4A5D006451C7"
-            BuildableName = "gobargerapp-tvOS.app"
-            BlueprintName = "gobargerapp-tvOS"
-            ReferencedContainer = "container:gobargerapp.xcodeproj">
+            BuildableName = "GoBarberApp-tvOS.app"
+            BlueprintName = "GoBarberApp-tvOS"
+            ReferencedContainer = "container:GoBarberApp.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
