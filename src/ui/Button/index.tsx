@@ -1,14 +1,14 @@
 import React from 'react'
-import { RectButtonProperties } from 'react-native-gesture-handler'
+import { TouchableHighlightProps } from 'react-native'
 
 import * as S from './styles'
 
 type Props = {
   children: string
-} & RectButtonProperties
+} & TouchableHighlightProps
 
 const Button = ({ children, ...props }: Props) => (
-  <S.Container {...props}>
+  <S.Container {...props} activeOpacity={1} underlayColor={'#e68200'}>
     <S.Text>{children}</S.Text>
   </S.Container>
 )

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import {
   Image,
   View,
@@ -8,6 +8,7 @@ import {
 } from 'react-native'
 import Icon from 'react-native-vector-icons/Feather'
 import { useNavigation } from '@react-navigation/native'
+import { useForm, Controller, ControllerRenderProps } from 'react-hook-form'
 
 import Button from 'ui/Button'
 import Input from 'ui/Input'
@@ -18,6 +19,9 @@ import * as S from './styles'
 
 const SignIn = () => {
   const navigation = useNavigation()
+
+  const { handleSubmit, control } = useForm()
+  const onSubmit = useCallback((data: object) => console.log(data), [])
 
   return (
     <>
@@ -37,10 +41,42 @@ const SignIn = () => {
               <S.Title>Faça seu login</S.Title>
             </View>
 
-            <Input name='email' icon='mail' placeholder='E-mail' />
-            <Input name='password' icon='lock' placeholder='Senha' />
+            <View>
+              <Controller
+                name='email'
+                control={control}
+                defaultValue=''
+                render={({ onChange }: ControllerRenderProps) => (
+                  <Input
+                    icon='mail'
+                    placeholder='E-mail'
+                    autoCapitalize='none'
+                    autoCorrect={false}
+                    keyboardType='email-address'
+                    returnKeyType='next'
+                    // onSubmitEditing={}
+                    onChangeText={text => onChange(text)}
+                  />
+                )}
+              />
+              <Controller
+                name='password'
+                control={control}
+                defaultValue=''
+                render={({ onChange }: ControllerRenderProps) => (
+                  <Input
+                    icon='lock'
+                    placeholder='Senha'
+                    returnKeyType='send'
+                    onSubmitEditing={handleSubmit(onSubmit)}
+                    onChangeText={text => onChange(text)}
+                    secureTextEntry
+                  />
+                )}
+              />
 
-            <Button onPress={() => console.log('Entrar')}>Entrar</Button>
+              <Button onPress={handleSubmit(onSubmit)}>Entrar</Button>
+            </View>
 
             <S.ForgotPassword
               onPress={() => console.log('Esqueci minha senha')}

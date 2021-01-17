@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import {
   Image,
   View,
@@ -8,6 +8,7 @@ import {
 } from 'react-native'
 import Icon from 'react-native-vector-icons/Feather'
 import { useNavigation } from '@react-navigation/native'
+import { useForm, Controller, ControllerRenderProps } from 'react-hook-form'
 
 import Button from 'ui/Button'
 import Input from 'ui/Input'
@@ -18,6 +19,9 @@ import * as S from './styles'
 
 const SignUp = () => {
   const navigation = useNavigation()
+
+  const { handleSubmit, control } = useForm()
+  const onSubmit = useCallback((data: object) => console.log(data), [])
 
   return (
     <>
@@ -34,16 +38,59 @@ const SignUp = () => {
             <Image source={logoImg} />
 
             <View>
-              <S.Title>Faça seu login</S.Title>
+              <S.Title>Crie sua conta</S.Title>
             </View>
 
-            <Input name='name' icon='user' placeholder='Nome' />
-            <Input name='password' icon='lock' placeholder='Senha' />
-            <Input name='password' icon='lock' placeholder='Senha' />
+            <View>
+              <Controller
+                name='name'
+                control={control}
+                defaultValue=''
+                render={({ onChange }: ControllerRenderProps) => (
+                  <Input
+                    icon='user'
+                    placeholder='Nome'
+                    autoCapitalize='none'
+                    autoCorrect={false}
+                    returnKeyType='next'
+                    onChangeText={text => onChange(text)}
+                  />
+                )}
+              />
+              <Controller
+                name='email'
+                control={control}
+                defaultValue=''
+                render={({ onChange }: ControllerRenderProps) => (
+                  <Input
+                    icon='mail'
+                    placeholder='E-mail'
+                    autoCapitalize='none'
+                    autoCorrect={false}
+                    keyboardType='email-address'
+                    returnKeyType='next'
+                    onChangeText={text => onChange(text)}
+                  />
+                )}
+              />
+              <Controller
+                name='password'
+                control={control}
+                defaultValue=''
+                render={({ onChange }: ControllerRenderProps) => (
+                  <Input
+                    icon='lock'
+                    placeholder='Senha'
+                    returnKeyType='send'
+                    onSubmitEditing={handleSubmit(onSubmit)}
+                    onChangeText={text => onChange(text)}
+                    secureTextEntry
+                  />
+                )}
+              />
 
-            <Button onPress={() => console.log('Entrar')}>
-              Crie sua conta
-            </Button>
+              <Button onPress={handleSubmit(onSubmit)}>Cadastrar</Button>
+            </View>
           </S.Container>
         </ScrollView>
       </KeyboardAvoidingView>
