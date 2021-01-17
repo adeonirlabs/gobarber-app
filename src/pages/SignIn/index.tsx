@@ -1,10 +1,11 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useRef } from 'react'
 import {
   Image,
   View,
   KeyboardAvoidingView,
   ScrollView,
   Platform,
+  TextInput,
 } from 'react-native'
 import Icon from 'react-native-vector-icons/Feather'
 import { useNavigation } from '@react-navigation/native'
@@ -19,6 +20,8 @@ import * as S from './styles'
 
 const SignIn = () => {
   const navigation = useNavigation()
+
+  const passwordInputRef = useRef<TextInput>(null)
 
   const { handleSubmit, control } = useForm()
   const onSubmit = useCallback((data: object) => console.log(data), [])
@@ -54,8 +57,10 @@ const SignIn = () => {
                     autoCorrect={false}
                     keyboardType='email-address'
                     returnKeyType='next'
-                    // onSubmitEditing={}
                     onChangeText={text => onChange(text)}
+                    onSubmitEditing={() => {
+                      passwordInputRef.current?.focus()
+                    }}
                   />
                 )}
               />
@@ -65,11 +70,12 @@ const SignIn = () => {
                 defaultValue=''
                 render={({ onChange }: ControllerRenderProps) => (
                   <Input
+                    ref={passwordInputRef}
                     icon='lock'
                     placeholder='Senha'
                     returnKeyType='send'
-                    onSubmitEditing={handleSubmit(onSubmit)}
                     onChangeText={text => onChange(text)}
+                    onSubmitEditing={handleSubmit(onSubmit)}
                     secureTextEntry
                   />
                 )}

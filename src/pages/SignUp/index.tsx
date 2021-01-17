@@ -1,10 +1,11 @@
-import React, { useCallback } from 'react'
+import React, { useCallback, useRef } from 'react'
 import {
   Image,
   View,
   KeyboardAvoidingView,
   ScrollView,
   Platform,
+  TextInput,
 } from 'react-native'
 import Icon from 'react-native-vector-icons/Feather'
 import { useNavigation } from '@react-navigation/native'
@@ -19,6 +20,9 @@ import * as S from './styles'
 
 const SignUp = () => {
   const navigation = useNavigation()
+
+  const emailInputRef = useRef<TextInput>(null)
+  const passwordInputRef = useRef<TextInput>(null)
 
   const { handleSubmit, control } = useForm()
   const onSubmit = useCallback((data: object) => console.log(data), [])
@@ -50,10 +54,13 @@ const SignUp = () => {
                   <Input
                     icon='user'
                     placeholder='Nome'
-                    autoCapitalize='none'
+                    autoCapitalize='words'
                     autoCorrect={false}
                     returnKeyType='next'
                     onChangeText={text => onChange(text)}
+                    onSubmitEditing={() => {
+                      emailInputRef.current?.focus()
+                    }}
                   />
                 )}
               />
@@ -63,6 +70,7 @@ const SignUp = () => {
                 defaultValue=''
                 render={({ onChange }: ControllerRenderProps) => (
                   <Input
+                    ref={emailInputRef}
                     icon='mail'
                     placeholder='E-mail'
                     autoCapitalize='none'
@@ -70,6 +78,9 @@ const SignUp = () => {
                     keyboardType='email-address'
                     returnKeyType='next'
                     onChangeText={text => onChange(text)}
+                    onSubmitEditing={() => {
+                      passwordInputRef.current?.focus()
+                    }}
                   />
                 )}
               />
@@ -79,11 +90,13 @@ const SignUp = () => {
                 defaultValue=''
                 render={({ onChange }: ControllerRenderProps) => (
                   <Input
+                    ref={passwordInputRef}
                     icon='lock'
                     placeholder='Senha'
                     returnKeyType='send'
-                    onSubmitEditing={handleSubmit(onSubmit)}
                     onChangeText={text => onChange(text)}
+                    onSubmitEditing={handleSubmit(onSubmit)}
+                    textContentType='newPassword'
                     secureTextEntry
                   />
                 )}
