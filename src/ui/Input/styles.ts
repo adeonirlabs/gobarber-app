@@ -15,7 +15,7 @@ export const Container = styled.View<ContainerProps>`
   ${({ isFocused }) => css`
     width: 100%;
     height: 60px;
-    padding: 0 16px;
+    padding: 8px 16px;
     background: #232129;
     border-width: 1px;
     border-color: #232129;
@@ -30,6 +30,7 @@ export const Container = styled.View<ContainerProps>`
 
 export const TextInput = styled.TextInput`
   flex: 1;
+  height: 100%;
   color: #ffffff;
   font-size: 16px;
   font-family: 'RobotoSlab-Regular';

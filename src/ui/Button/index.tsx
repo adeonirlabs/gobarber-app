@@ -8,7 +8,7 @@ type Props = {
 } & TouchableHighlightProps
 
 const Button = ({ children, ...props }: Props) => (
-  <S.Container {...props} activeOpacity={1} underlayColor={'#e68200'}>
+  <S.Container {...props} activeOpacity={1} underlayColor='#e68200'>
     <S.Text>{children}</S.Text>
   </S.Container>
 )

@@ -1,15 +1,17 @@
 import React, { forwardRef, useCallback, useState } from 'react'
-import { TextInput, TextInputProps } from 'react-native'
+import { TextInput } from 'react-native'
+import { FieldValues, useController } from 'react-hook-form'
 
 import * as S from './styles'
 
 type InputProps = {
   icon?: string
-} & TextInputProps
+} & FieldValues
 
 const Input = forwardRef<TextInput, InputProps>(
-  ({ icon, ...props }, forwardedRef) => {
+  ({ icon, name, control, ...props }, forwardedRef) => {
     const [isFocused, setIsFocused] = useState(false)
+    const { field } = useController({ name, control })
 
     const handleInputFocus = useCallback(() => {
       setIsFocused(true)
@@ -30,7 +32,9 @@ const Input = forwardRef<TextInput, InputProps>(
         )}
 
         <S.TextInput
+          {...field}
           ref={forwardedRef}
+          onChangeText={text => field.onChange(text)}
           onFocus={handleInputFocus}
           onBlur={handleInputBlur}
           keyboardAppearance='dark'

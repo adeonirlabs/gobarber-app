@@ -31,7 +31,7 @@ export const CreateAccount = styled.TouchableOpacity`
   left: 0;
   right: 0;
   bottom: 0;
-  background: #333038;
+  background: #312e38;
   border-top-width: 1px;
   border-color: #232129;
   padding: 16px 0 ${getBottomSpace()}px;
