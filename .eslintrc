@@ -25,7 +25,8 @@
     "react-hooks",
     "@typescript-eslint",
     "prettier",
-    "import"
+    "import",
+    "simple-import-sort"
   ],
   "rules": {
     "prettier/prettier": "error",
@@ -36,6 +37,8 @@
     "react/jsx-filename-extension": ["off", { "extensions": [".tsx"] }],
     "react/jsx-props-no-spreading": "off",
     "react/prop-types": "off",
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error",
     "no-unused-expressions": "off",
     "no-use-before-define": "off",
     "import/prefer-default-export": "off",

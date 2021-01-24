@@ -1,5 +1,5 @@
-import styled from 'styled-components/native'
 import { TouchableHighlight } from 'react-native'
+import styled from 'styled-components/native'
 
 export const Container = styled(TouchableHighlight)`
   height: 60px;

@@ -1,20 +1,21 @@
+import { yupResolver } from '@hookform/resolvers/yup'
+import { useNavigation } from '@react-navigation/native'
+import logoImg from 'assets/logo.png'
 import React, { useCallback, useRef } from 'react'
+import { useForm } from 'react-hook-form'
 import {
+  Alert,
   Image,
-  View,
   KeyboardAvoidingView,
-  ScrollView,
   Platform,
+  ScrollView,
   TextInput,
+  View,
 } from 'react-native'
 import Icon from 'react-native-vector-icons/Feather'
-import { useNavigation } from '@react-navigation/native'
-import { useForm } from 'react-hook-form'
-
 import Button from 'ui/Button'
 import Input from 'ui/Input'
-
-import logoImg from 'assets/logo.png'
+import * as Yup from 'yup'
 
 import * as S from './styles'
 
@@ -28,13 +29,31 @@ const SignIn = () => {
 
   const passwordInputRef = useRef<TextInput>(null)
 
-  const { handleSubmit, control } = useForm({
+  const schema = Yup.object().shape({
+    email: Yup.string()
+      .required('E-mail é obrigatório')
+      .email('Insira um e-mail válido'),
+    password: Yup.string().required('Senha é obrigatória').min(3),
+  })
+
+  const { handleSubmit, control, errors } = useForm({
     defaultValues: {
       email: '',
       password: '',
     },
+    resolver: yupResolver(schema),
   })
-  const onSubmit = useCallback((data: SignInProps) => console.log(data), [])
+
+  const onSubmit = useCallback((data: SignInProps) => {
+    try {
+      console.log(data)
+    } catch (error) {
+      Alert.alert(
+        'Erro na autenticação',
+        'Ocorreu erro ao fazer login, verifique as credenciais',
+      )
+    }
+  }, [])
 
   return (
     <>
@@ -67,6 +86,7 @@ const SignIn = () => {
                 onSubmitEditing={() => {
                   passwordInputRef.current?.focus()
                 }}
+                hasError={errors.email}
               />
               <Input
                 ref={passwordInputRef}
@@ -78,6 +98,7 @@ const SignIn = () => {
                 onSubmitEditing={handleSubmit(onSubmit)}
                 textContentType='newPassword'
                 secureTextEntry
+                hasError={errors.password}
               />
 
               <Button onPress={handleSubmit(onSubmit)}>Entrar</Button>
