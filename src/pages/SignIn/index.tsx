@@ -119,6 +119,7 @@ const SignIn = () => {
             </View>
 
             <S.ForgotPassword
+              // eslint-disable-next-line no-console
               onPress={() => console.log('Esqueci minha senha')}
             >
               <S.ForgotPasswordText>Esqueci minha senha</S.ForgotPasswordText>
