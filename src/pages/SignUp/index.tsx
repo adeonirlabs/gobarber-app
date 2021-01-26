@@ -13,6 +13,7 @@ import {
   View,
 } from 'react-native'
 import Icon from 'react-native-vector-icons/Feather'
+import api from 'services/api'
 import Button from 'ui/Button'
 import Input from 'ui/Input'
 import * as Yup from 'yup'
@@ -47,16 +48,26 @@ const SignUp = () => {
     },
     resolver: yupResolver(schema),
   })
-  const onSubmit = useCallback((data: SignUpProps) => {
-    try {
-      console.log(data)
-    } catch (error) {
-      Alert.alert(
-        'Erro na autenticação',
-        'Ocorreu erro ao fazer login, verifique as credenciais',
-      )
-    }
-  }, [])
+  const onSubmit = useCallback(
+    async (data: SignUpProps) => {
+      try {
+        await api.post('/users', data)
+
+        Alert.alert(
+          'Cadastro realizado com sucesso!',
+          'Você já pode fazer login na aplicação',
+        )
+
+        navigation.navigate('SignIn')
+      } catch (error) {
+        Alert.alert(
+          'Erro na autenticação',
+          'Ocorreu erro ao fazer login, verifique as credenciais',
+        )
+      }
+    },
+    [navigation],
+  )
 
   return (
     <>

@@ -8,8 +8,10 @@ module.exports = {
         alias: {
           assets: './src/assets',
           components: './src/components',
+          hooks: './src/hooks',
           pages: './src/pages',
           routes: './src/routes',
+          services: './src/services',
           ui: './src/ui',
         },
       },

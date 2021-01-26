@@ -1,6 +1,7 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useNavigation } from '@react-navigation/native'
 import logoImg from 'assets/logo.png'
+import { useAuth } from 'hooks/auth'
 import React, { useCallback, useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import {
@@ -27,6 +28,8 @@ type SignInProps = {
 const SignIn = () => {
   const navigation = useNavigation()
 
+  const { signIn } = useAuth()
+
   const passwordInputRef = useRef<TextInput>(null)
 
   const schema = Yup.object().shape({
@@ -44,16 +47,27 @@ const SignIn = () => {
     resolver: yupResolver(schema),
   })
 
-  const onSubmit = useCallback((data: SignInProps) => {
-    try {
-      console.log(data)
-    } catch (error) {
-      Alert.alert(
-        'Erro na autenticação',
-        'Ocorreu erro ao fazer login, verifique as credenciais',
-      )
-    }
-  }, [])
+  const onSubmit = useCallback(
+    async (data: SignInProps) => {
+      try {
+        await signIn({
+          email: data.email,
+          password: data.password,
+        })
+
+        Alert.alert(
+          'SignIn executado com sucesso!',
+          'Você já pode usar a aplicação',
+        )
+      } catch (error) {
+        Alert.alert(
+          'Erro na autenticação',
+          'Ocorreu erro ao fazer login, verifique as credenciais',
+        )
+      }
+    },
+    [signIn],
+  )
 
   return (
     <>
