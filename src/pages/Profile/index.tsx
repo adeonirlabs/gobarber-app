@@ -11,7 +11,7 @@ import {
   TextInput,
   View,
 } from 'react-native'
-// import { launchImageLibrary } from 'react-native-image-picker'
+import { launchImageLibrary } from 'react-native-image-picker'
 import Icon from 'react-native-vector-icons/Feather'
 import api from 'services/api'
 import Input from 'ui/Input'
@@ -112,22 +112,23 @@ const Profile = () => {
   )
 
   const handleUpdateAvatar = useCallback(() => {
-    // TODO: melhorar implementação
-    // TODO: usar a lib https://github.com/callstack/react-native-image-editor
-    // launchImageLibrary({ mediaType: 'photo' }, response => {
-    //   if (response.errorCode) {
-    //     Alert.alert('Erro ao atualizar seu avatar!')
-    //   }
-    //   const data = new FormData()
-    //   data.append('avatar', {
-    //     type: 'image/jpeg',
-    //     file: response.fileName,
-    //     uri: response.uri,
-    //   })
-    //   api.patch('users/avatar', data).then(res => {
-    //     updateUser(res.data)
-    //   })
-    // })
+    // TODO: melhorar com uso da lib https://github.com/callstack/react-native-image-editor
+    launchImageLibrary({ mediaType: 'photo' }, res => {
+      if (res.errorCode) {
+        Alert.alert('Erro ao atualizar seu avatar!')
+      }
+
+      const data = new FormData()
+      data.append('avatar', {
+        type: 'image/jpeg',
+        name: res.fileName,
+        uri: res.uri,
+      })
+
+      api.patch('users/avatar', data).then(response => {
+        updateUser(response.data)
+      })
+    })
   }, [])
 
   const goToDashboard = useCallback(() => {
