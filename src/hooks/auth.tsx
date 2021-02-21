@@ -19,6 +19,11 @@ type User = {
   avatar_url: string
 }
 
+type AuthState = {
+  token: string
+  user: User
+}
+
 type Credetials = {
   email?: string
   password?: string
@@ -29,11 +34,7 @@ type AuthData = {
   loading: boolean
   signIn(credentials: Credetials): Promise<void>
   signOut(): void
-}
-
-type AuthState = {
-  token: string
-  user: User
+  updateUser(user: User): Promise<void>
 }
 
 const AuthContext = createContext<AuthData>({} as AuthData)
@@ -85,8 +86,25 @@ export const AuthProvider = ({ children }: Props) => {
     setData({} as AuthState)
   }, [])
 
+  const updateUser = useCallback(
+    async (user: User) => {
+      await asyncStorage.setItem('@GoBarber: user', JSON.stringify(user))
+
+      setData({
+        token: data.token,
+        user: {
+          ...data.user,
+          ...user,
+        },
+      })
+    },
+    [data],
+  )
+
   return (
-    <AuthContext.Provider value={{ user: data.user, loading, signIn, signOut }}>
+    <AuthContext.Provider
+      value={{ user: data.user, loading, signIn, signOut, updateUser }}
+    >
       {children}
     </AuthContext.Provider>
   )
