@@ -18,8 +18,8 @@ const modifier = {
 export const Container = styled.View<ContainerProps>`
   ${({ isFocused, hasError }) => css`
     width: 100%;
-    height: 60px;
-    padding: 8px 16px;
+    height: 52px;
+    padding: 0 16px;
     background: #232129;
     border-width: 2px;
     border-color: #232129;

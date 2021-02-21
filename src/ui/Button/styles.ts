@@ -2,7 +2,7 @@ import { TouchableHighlight } from 'react-native'
 import styled from 'styled-components/native'
 
 export const Container = styled(TouchableHighlight)`
-  height: 60px;
+  height: 52px;
   background: #ff9000;
   border-radius: 10px;
   align-items: center;
