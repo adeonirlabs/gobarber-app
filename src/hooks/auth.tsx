@@ -74,6 +74,8 @@ export const AuthProvider = ({ children }: Props) => {
       ['@GoBarber: user', JSON.stringify(user)],
     ])
 
+    api.defaults.headers.authorization = `Bearer ${token}`
+
     setData({ token, user })
   }, [])
 
