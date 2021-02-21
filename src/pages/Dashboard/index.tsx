@@ -1,24 +1,31 @@
+import { useNavigation } from '@react-navigation/native'
 import { useAuth } from 'hooks/auth'
-import React from 'react'
-import { View } from 'react-native'
-import Button from 'ui/Button'
+import React, { useCallback } from 'react'
+
+import * as S from './styles'
 
 const Dashboard = () => {
-  const { signOut } = useAuth()
+  const { user } = useAuth()
+  const { navigate } = useNavigation()
+
+  const goToProfile = useCallback(() => {
+    navigate('Profile')
+  }, [navigate])
 
   return (
-    <View
-      style={{
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: 30,
-      }}
-    >
-      <Button onPress={signOut} style={{ width: '100%' }}>
-        Sair
-      </Button>
-    </View>
+    <S.Container>
+      <S.Header>
+        <S.Info>
+          Bem vindo,
+          {'\n'}
+          <S.UserName>{user.name}</S.UserName>
+        </S.Info>
+
+        <S.ProfileButton onPress={goToProfile}>
+          <S.Avatar source={{ uri: user.avatar_url }} />
+        </S.ProfileButton>
+      </S.Header>
+    </S.Container>
   )
 }
 

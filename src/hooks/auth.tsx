@@ -12,14 +12,20 @@ type Props = {
   children: React.ReactNode
 }
 
+type User = {
+  id: string
+  name: string
+  email: string
+  avatar_url: string
+}
+
 type Credetials = {
   email?: string
   password?: string
 }
 
 type AuthData = {
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  user: object
+  user: User
   loading: boolean
   signIn(credentials: Credetials): Promise<void>
   signOut(): void
@@ -27,8 +33,7 @@ type AuthData = {
 
 type AuthState = {
   token: string
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  user: object
+  user: User
 }
 
 const AuthContext = createContext<AuthData>({} as AuthData)
@@ -39,13 +44,15 @@ export const AuthProvider = ({ children }: Props) => {
 
   useEffect(() => {
     async function loadStoragedDate(): Promise<void> {
-      const [[token], [user]] = await asyncStorage.multiGet([
+      const [[, token], [, user]] = await asyncStorage.multiGet([
         '@GoBarber: token',
         '@GoBarber: user',
       ])
 
       if (token && user) {
-        setData({ token, user: JSON.parse })
+        api.defaults.headers.authorization = `Bearer ${token}`
+
+        setData({ token, user: JSON.parse(user) })
       }
 
       setLoading(false)
