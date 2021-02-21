@@ -11,6 +11,7 @@ import {
   TextInput,
   View,
 } from 'react-native'
+// import { launchImageLibrary } from 'react-native-image-picker'
 import Icon from 'react-native-vector-icons/Feather'
 import api from 'services/api'
 import Input from 'ui/Input'
@@ -65,6 +66,7 @@ const Profile = () => {
     },
     resolver: yupResolver(schema),
   })
+
   const onSubmit = useCallback(
     async (data: ProfileData) => {
       try {
@@ -109,6 +111,25 @@ const Profile = () => {
     [navigate, schema, updateUser],
   )
 
+  const handleUpdateAvatar = useCallback(() => {
+    // TODO: melhorar implementação
+    // TODO: usar a lib https://github.com/callstack/react-native-image-editor
+    // launchImageLibrary({ mediaType: 'photo' }, response => {
+    //   if (response.errorCode) {
+    //     Alert.alert('Erro ao atualizar seu avatar!')
+    //   }
+    //   const data = new FormData()
+    //   data.append('avatar', {
+    //     type: 'image/jpeg',
+    //     file: response.fileName,
+    //     uri: response.uri,
+    //   })
+    //   api.patch('users/avatar', data).then(res => {
+    //     updateUser(res.data)
+    //   })
+    // })
+  }, [])
+
   const goToDashboard = useCallback(() => {
     navigate('Dashboard')
   }, [navigate])
@@ -138,8 +159,7 @@ const Profile = () => {
         >
           <S.ProfileWrapper>
             <View>
-              {/* eslint-disable-next-line @typescript-eslint/no-empty-function */}
-              <S.UserAvatarButton onPress={() => {}}>
+              <S.UserAvatarButton onPress={handleUpdateAvatar}>
                 <S.UserAvatar source={{ uri: user.avatar_url }} />
               </S.UserAvatarButton>
 
