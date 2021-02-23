@@ -16,7 +16,7 @@ const AppRoutes = () => (
   >
     <App.Screen name='Dashboard' component={Dashboard} />
     <App.Screen name='NewAppointment' component={NewAppointment} />
-    <App.Screen name='ListAppointment' component={AppointmentCreated} />
+    <App.Screen name='AppointmentCreated' component={AppointmentCreated} />
 
     <App.Screen name='Profile' component={Profile} />
   </App.Navigator>

@@ -3,7 +3,7 @@ import { useNavigation, useRoute } from '@react-navigation/native'
 import { format } from 'date-fns'
 import { useAuth } from 'hooks/auth'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
-import { Platform } from 'react-native'
+import { Alert, Platform } from 'react-native'
 import Icon from 'react-native-vector-icons/Feather'
 import api from 'services/api'
 
@@ -26,7 +26,7 @@ type AvailabilityProps = {
 
 const NewAppointment = () => {
   const { user } = useAuth()
-  const { goBack } = useNavigation()
+  const { goBack, navigate } = useNavigation()
 
   const route = useRoute()
   const { providerID } = route.params as RouteParams
@@ -83,6 +83,27 @@ const NewAppointment = () => {
   const handleSelectHour = useCallback((hour: number) => {
     setSelectedHour(hour)
   }, [])
+
+  const handleNewApprointment = useCallback(async () => {
+    try {
+      const date = new Date(selectedDate)
+
+      date.setHours(selectedHour)
+      date.setMinutes(0)
+
+      await api.post('appointments', {
+        provider_id: selectedProvider,
+        date,
+      })
+
+      navigate('AppointmentCreated', { date: date.getTime() })
+    } catch (err) {
+      Alert.alert(
+        'Erro ao criar agendamento!',
+        'Ocorreu um erro ao tentar criar um agendamento, tente novamente!',
+      )
+    }
+  }, [navigate, selectedDate, selectedHour, selectedProvider])
 
   const toggleDatePicker = useCallback(() => {
     setShowDatePicker(!showDatePicker)
@@ -211,6 +232,8 @@ const NewAppointment = () => {
             </S.SectionContent>
           </S.Section>
         </S.Schedule>
+
+        <S.NewButton onPress={handleNewApprointment}>Agendar</S.NewButton>
       </S.MainContent>
     </S.Container>
   )

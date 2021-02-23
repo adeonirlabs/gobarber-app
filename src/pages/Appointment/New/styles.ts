@@ -2,6 +2,7 @@ import { FlatList } from 'react-native'
 import { RectButton } from 'react-native-gesture-handler'
 import { getStatusBarHeight } from 'react-native-iphone-x-helper'
 import styled, { css } from 'styled-components/native'
+import Button from 'ui/Button'
 
 import { ProviderProps } from '.'
 
@@ -149,4 +150,8 @@ export const HourText = styled.Text<HourTextProps>`
     font-size: 16px;
     font-family: 'RobotoSlab-Regular';
   `}
+`
+
+export const NewButton = styled(Button)`
+  margin: 0 24px 24px;
 `
