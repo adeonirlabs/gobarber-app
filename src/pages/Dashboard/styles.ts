@@ -5,7 +5,7 @@ import {
 } from 'react-native-iphone-x-helper'
 import styled from 'styled-components/native'
 
-import { Provider } from '.'
+import { ProviderProps } from '.'
 
 export const Container = styled.View`
   flex: 1;
@@ -42,7 +42,9 @@ export const UserAvatar = styled.Image`
   background: #1e1d23;
 `
 
-export const ProvidersList = styled(FlatList as new () => FlatList<Provider>)`
+export const ProvidersList = styled(
+  FlatList as new () => FlatList<ProviderProps>,
+)`
   padding: 32px 24px 16px;
 `
 

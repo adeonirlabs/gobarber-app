@@ -6,7 +6,7 @@ import api from 'services/api'
 
 import * as S from './styles'
 
-export type Provider = {
+export type ProviderProps = {
   id: string
   name: string
   avatar_url: string
@@ -16,7 +16,7 @@ const Dashboard = () => {
   const { user } = useAuth()
   const { navigate } = useNavigation()
 
-  const [providers, setProviders] = useState<Provider[]>([])
+  const [providers, setProviders] = useState<ProviderProps[]>([])
 
   useEffect(() => {
     api.get('providers').then(response => {

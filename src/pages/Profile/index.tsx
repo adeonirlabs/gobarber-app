@@ -129,7 +129,7 @@ const Profile = () => {
         updateUser(response.data)
       })
     })
-  }, [])
+  }, [updateUser])
 
   const goToDashboard = useCallback(() => {
     navigate('Dashboard')
