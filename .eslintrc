@@ -43,6 +43,7 @@
     "simple-import-sort/exports": "error",
     "no-unused-expressions": "off",
     "no-use-before-define": "off",
+    "import/no-duplicates": "off",
     "import/prefer-default-export": "off",
     "import/extensions": [
       "error",

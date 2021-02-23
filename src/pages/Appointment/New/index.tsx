@@ -28,8 +28,8 @@ const NewAppointment = () => {
   const { user } = useAuth()
   const { goBack, navigate } = useNavigation()
 
-  const route = useRoute()
-  const { providerID } = route.params as RouteParams
+  const { params } = useRoute()
+  const { providerID } = params as RouteParams
 
   const [providers, setProviders] = useState<ProviderProps[]>([])
   const [selectedProvider, setSelectedProvider] = useState(providerID)
@@ -96,7 +96,10 @@ const NewAppointment = () => {
         date,
       })
 
-      navigate('AppointmentCreated', { date: date.getTime() })
+      navigate('AppointmentCreated', {
+        date: date.getTime(),
+        providerID: selectedProvider,
+      })
     } catch (err) {
       Alert.alert(
         'Erro ao criar agendamento!',
@@ -115,7 +118,7 @@ const NewAppointment = () => {
       .map(({ hour, available }) => {
         return {
           hour,
-          formatedHour: format(new Date().setHours(hour), 'HH:00'),
+          formattedHour: format(new Date().setHours(hour), 'HH:00'),
           available,
         }
       })
@@ -127,7 +130,7 @@ const NewAppointment = () => {
       .map(({ hour, available }) => {
         return {
           hour,
-          formatedHour: format(new Date().setHours(hour), 'HH:00'),
+          formattedHour: format(new Date().setHours(hour), 'HH:00'),
           available,
         }
       })
@@ -194,16 +197,16 @@ const NewAppointment = () => {
             <S.SectionTitle>Manhã</S.SectionTitle>
 
             <S.SectionContent>
-              {mornigAvailability.map(({ hour, formatedHour, available }) => (
+              {mornigAvailability.map(({ hour, formattedHour, available }) => (
                 <S.Hour
                   enabled={available}
                   available={available}
                   selected={selectedHour === hour}
-                  key={formatedHour}
+                  key={formattedHour}
                   onPress={() => handleSelectHour(hour)}
                 >
                   <S.HourText selected={selectedHour === hour}>
-                    {formatedHour}
+                    {formattedHour}
                   </S.HourText>
                 </S.Hour>
               ))}
@@ -215,16 +218,16 @@ const NewAppointment = () => {
 
             <S.SectionContent>
               {afternoonAvailability.map(
-                ({ hour, formatedHour, available }) => (
+                ({ hour, formattedHour, available }) => (
                   <S.Hour
                     enabled={available}
                     available={available}
                     selected={selectedHour === hour}
-                    key={formatedHour}
+                    key={formattedHour}
                     onPress={() => handleSelectHour(hour)}
                   >
                     <S.HourText selected={selectedHour === hour}>
-                      {formatedHour}
+                      {formattedHour}
                     </S.HourText>
                   </S.Hour>
                 ),
