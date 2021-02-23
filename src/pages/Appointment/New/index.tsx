@@ -1,6 +1,8 @@
+import DateTimePicker from '@react-native-community/datetimepicker'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { useAuth } from 'hooks/auth'
 import React, { useCallback, useEffect, useState } from 'react'
+import { Platform } from 'react-native'
 import Icon from 'react-native-vector-icons/Feather'
 import api from 'services/api'
 
@@ -25,6 +27,8 @@ const NewAppointment = () => {
 
   const [providers, setProviders] = useState<ProviderProps[]>([])
   const [selectedProvider, setSelectedProvider] = useState(providerID)
+  const [showDatePicker, setShowDatePicker] = useState(false)
+  const [selectedDate, setSelectedDate] = useState(new Date())
 
   useEffect(() => {
     api.get('providers').then(response => {
@@ -32,13 +36,29 @@ const NewAppointment = () => {
     })
   }, [])
 
+  const goToDashboard = useCallback(() => {
+    goBack()
+  }, [goBack])
+
   const handleSelectProvider = useCallback((id: string) => {
     setSelectedProvider(id)
   }, [])
 
-  const goToDashboard = useCallback(() => {
-    goBack()
-  }, [goBack])
+  const handleChangeDate = useCallback(
+    (event: Event, date: Date | undefined) => {
+      if (Platform.OS === 'android') {
+        setShowDatePicker(false)
+      }
+      if (date) {
+        setSelectedDate(date)
+      }
+    },
+    [],
+  )
+
+  const toggleDatePicker = useCallback(() => {
+    setShowDatePicker(!showDatePicker)
+  }, [showDatePicker])
 
   return (
     <S.Container>
@@ -71,6 +91,25 @@ const NewAppointment = () => {
           )}
         />
       </S.ProvidersContainer>
+
+      <S.Calendar>
+        <S.CalendarTitle>Escolha a data</S.CalendarTitle>
+
+        <S.DatePickerButton onPress={toggleDatePicker}>
+          <S.DatePickerButtonText>Selecionar outra data</S.DatePickerButtonText>
+        </S.DatePickerButton>
+
+        {showDatePicker && (
+          <DateTimePicker
+            value={selectedDate}
+            mode='date'
+            is24Hour
+            display='spinner'
+            textColor='#f4ede8'
+            onChange={handleChangeDate}
+          />
+        )}
+      </S.Calendar>
     </S.Container>
   )
 }
